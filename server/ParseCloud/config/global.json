@@ -1,0 +1,11 @@
+{
+    "applications": {
+        "Who Said": {
+            "applicationId": "8Oj7j7pYRXClaPfwr93VEcx4izkSDTk5dSgLzXBA", 
+            "masterKey": "c23Uc6STm3FDR9AzSi3FvSKcFRXtQp9xJ43M3vIl"
+        }, 
+        "_default": {
+            "link": "Who Said"
+        }
+    }
+}
