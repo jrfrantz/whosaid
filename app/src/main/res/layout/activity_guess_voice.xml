@@ -1,0 +1,35 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp" >
+    <ImageView
+        android:id="@+id/personface"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/mediacontroller_left"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:tag="left"
+        android:text="Voice 1">
+    </Button>
+    <Button
+        android:id="@+id/mediacontroller_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:tag="right"
+        android:text="Voice 2">
+    </Button>
+</RelativeLayout>
+</ScrollView>

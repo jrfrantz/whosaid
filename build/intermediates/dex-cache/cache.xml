@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pre-dex-items>
+
+    <item
+        dex="/Users/Jacob/AndroidStudioProjects/WhoSaid/app/build/intermediates/pre-dexed/debug/aws-android-sdk-2.1.1-s3-94db7fca25c5eacc5e247e70dd0035c671b60895.jar"
+        jar="/Users/Jacob/AndroidStudioProjects/WhoSaid/app/libs/aws-android-sdk-2.1.1-s3.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="0e598ed96ce257201cc1c98ca94e7fb9f1f34fab"/>
+    <item
+        dex="/Users/Jacob/AndroidStudioProjects/WhoSaid/app/build/intermediates/pre-dexed/debug/aws-android-sdk-2.1.1-ec2-ec18d4740fce552bbfa5ceea4e3f78b5cbf47858.jar"
+        jar="/Users/Jacob/AndroidStudioProjects/WhoSaid/app/libs/aws-android-sdk-2.1.1-ec2.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="e3622d23a89b6ea7438a4e6a1be73cc961d65259"/>
+    <item
+        dex="/Users/Jacob/AndroidStudioProjects/WhoSaid/app/build/intermediates/pre-dexed/debug/aws-android-sdk-2.1.1-mobileanalytics-ced4fb121e22b401a62bc5be10164170f417183b.jar"
+        jar="/Users/Jacob/AndroidStudioProjects/WhoSaid/app/libs/aws-android-sdk-2.1.1-mobileanalytics.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="54c653a35b72c39d0a466ae0deb971f3e22916b9"/>
+
+</pre-dex-items>
