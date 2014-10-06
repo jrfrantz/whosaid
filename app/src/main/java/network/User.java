@@ -5,9 +5,13 @@ package network;
  */
 public class User {
     private String id;
+    private String fileID;
+    private UserFootprint f;
 
-    public User(String id) {
-        this.id = id;
+    public User(UserFootprint f) {
+        this.f = f;
+        id = f.getFootprintID();
+        fileID = "user_id_" + id;
     }
 
     public String getID() {
@@ -16,5 +20,13 @@ public class User {
 
     public String getParseKey() {
         return id;
+    }
+
+    public String getFileID() {
+        return fileID;
+    }
+
+    public UserFootprint getPhoneFingerprint() {
+        return f;
     }
 }

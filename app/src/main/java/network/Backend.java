@@ -46,11 +46,11 @@ public class Backend {
         });
     }
 
-    private String getCanonicalUserId() {
+    private String getCanonicalUserId(User u) {
         return null;
     }
 
-    public static User createNewUser() {
+    public static User createNewUser(UserFootprint f) {
         return new User(generateRandomFileName());
     }
 
@@ -69,6 +69,10 @@ public class Backend {
         // TODO: format this string to fix the width of integers
         String s = "guid_" + r.nextInt();
         return s;
+    }
+
+    private static String generateUserFileName(User u) {
+        return generateRandomFileName();
     }
 
     public static void saveFiles(User user, File picture, File voice) {
