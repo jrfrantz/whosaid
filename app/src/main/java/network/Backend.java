@@ -25,6 +25,7 @@ public class Backend {
     private static HashMap<User, UserInfo> fileMap;
 
     private static final String info_map = "USER_TO_FILE_MAP";
+    private static final String info_map_key = "USER_TO_FILE_MAP";
 
     public Backend() {
 
@@ -33,7 +34,10 @@ public class Backend {
         query.getInBackground("xWMyZ4YEGZ", new GetCallback<ParseObject>() {
             public void done(ParseObject object, ParseException e) {
                 if (e == null) {
-                    // object will be your game score
+                    if (!object.containsKey(info_map_key)) {
+                        fileMap = new HashMap<User, UserInfo>();
+                    }
+                    fileMap = (HashMap<User, UserInfo>) object.get(info_map_key);
                 } else {
                     // something went wrong
                 }
