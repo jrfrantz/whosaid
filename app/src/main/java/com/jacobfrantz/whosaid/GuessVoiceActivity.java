@@ -85,7 +85,8 @@ public class GuessVoiceActivity extends Activity {
         if (res == "") {
             res = "yes";
         }
-        return ("yes").equals(res);
+        //return ("yes").equals(res);
+        return true;
     }
 
 

@@ -133,10 +133,16 @@ public class NewUserActivity extends Activity {
             editor.commit();
 
             Log.d("nux", "continue was clicked");
+
+            // send it off
+            
+
             Intent i = new Intent(NewUserActivity.this, GuessVoiceActivity.class);
             startActivity(i);
             finish();
             Log.d("nux", "finished");
+
+
         }
     }
     private int getFrontCameraId(){
