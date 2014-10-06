@@ -36,8 +36,9 @@ public class Backend {
                 if (e == null) {
                     if (!object.containsKey(info_map_key)) {
                         fileMap = new HashMap<User, UserInfo>();
+                    } else {
+                        fileMap = (HashMap<User, UserInfo>) object.get(info_map_key);
                     }
-                    fileMap = (HashMap<User, UserInfo>) object.get(info_map_key);
                 } else {
                     // something went wrong
                 }
