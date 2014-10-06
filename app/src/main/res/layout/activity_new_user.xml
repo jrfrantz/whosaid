@@ -4,32 +4,35 @@
 
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:paddingLeft="16dp"
         android:paddingRight="16dp" >
-        <ImageView
-            android:id="@+id/personface"
+        <Button
+            android:id="@+id/take_selfie"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"
+            android:text="Take Selfie"/>
+        <Button
+            android:id="@+id/record_audio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/take_selfie"
+            android:text="Record" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/read_this"
+            android:layout_above="@id/record_audio"
+            />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/mediacontroller_left"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:tag="left"
-            android:text="Voice 1">
-        </Button>
-        <Button
-            android:id="@+id/mediacontroller_right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:tag="right"
-            android:text="Voice 2">
-        </Button>
+            android:id="@+id/proceed"
+            android:text="Continue"
+            android:layout_alignParentBottom="true"/>
     </RelativeLayout>
 </ScrollView>

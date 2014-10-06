@@ -6,6 +6,6 @@ package network;
 public class Backend {
 
     public String[] getURLs() {
-
+        return null;
     }
 }

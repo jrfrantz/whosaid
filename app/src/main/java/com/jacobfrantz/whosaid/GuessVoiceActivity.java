@@ -13,7 +13,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.MediaController;
-
+import com.parse.Parse;
+import com.parse.ParseAnalytics;
 
 public class GuessVoiceActivity extends Activity {
     private ImageView face;
@@ -32,28 +33,34 @@ public class GuessVoiceActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         if (needsNux()) {
+            Log.d("","nux");
             Intent nux = new Intent(this, NewUserActivity.class);
             startActivity(nux);
             finish();
+        } else {
+            Log.d("", "olduser");
+
+            setContentView(R.layout.activity_guess_voice);
+
+            Parse.initialize(this, "RRSzNkADoF991MKjZBv6P4umaCcFpAfcGsNwgrZQ", "1pSC1xgubgF846ZJH3SdM4aFZrS60UcDaDKODmnE");
+
+            face = (ImageView) findViewById(R.id.personface);
+            audioButtonLeft = (Button) findViewById(R.id.mediacontroller_left);
+            audioButtonRight = (Button) findViewById(R.id.mediacontroller_right);
+            audioButtonLeft.setOnClickListener(new AudioOnClickListener());
+            audioButtonLeft.setOnClickListener(new AudioOnClickListener());
+
+            audioPlayerLeft = MediaPlayer.create(this, R.raw.testaudio);
+            audioPlayerRight = new MediaPlayer();
+
+            face.setImageResource(R.drawable.testimg);
         }
-
-        setContentView(R.layout.activity_guess_voice);
-
-        face = (ImageView) findViewById(R.id.personface);
-        audioButtonLeft = (Button) findViewById(R.id.mediacontroller_left);
-        audioButtonRight = (Button) findViewById(R.id.mediacontroller_right);
-        audioButtonLeft.setOnClickListener(new AudioOnClickListener());
-        audioButtonLeft.setOnClickListener(new AudioOnClickListener());
-
-        audioPlayerLeft = MediaPlayer.create(this, R.raw.testaudio);
-        //audioPlayerLeft.start();
-        audioPlayerRight = new MediaPlayer();
-
-        face.setImageResource(R.drawable.testimg);
     }
 
     public boolean needsNux() {
-        SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+        Log.d("","hello");
+        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        Log.d("","second");
         return sharedPref.getBoolean("nux", true); // true is fallback
     }
 
