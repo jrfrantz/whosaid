@@ -2,6 +2,12 @@
 <pre-dex-items>
 
     <item
+        dex="/Users/Jacob/AndroidStudioProjects/whosaid/app/build/intermediates/pre-dexed/debug/commons-io-2.4-ea8557849206e088fc1731ac91f4f1ee028d33f0.jar"
+        jar="/Users/Jacob/AndroidStudioProjects/whosaid/app/libs/commons-io-2.4.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="b1b6ea3b7e4aa4f492509a4952029cd8e48019ad"/>
+    <item
         dex="/Users/Jacob/AndroidStudioProjects/whosaid/app/build/intermediates/pre-dexed/debug/aws-android-sdk-2.1.1-s3-1917af8a4b489d142ff7af95f189a7a98075bcbb.jar"
         jar="/Users/Jacob/AndroidStudioProjects/whosaid/app/libs/aws-android-sdk-2.1.1-s3.jar"
         jumboMode="false"
@@ -25,11 +31,5 @@
         jumboMode="false"
         revision="20.0.0"
         sha1="54c653a35b72c39d0a466ae0deb971f3e22916b9"/>
-    <item
-        dex="/Users/Jacob/AndroidStudioProjects/whosaid/app/build/intermediates/pre-dexed/debug/commons-io-2.4-ea8557849206e088fc1731ac91f4f1ee028d33f0.jar"
-        jar="/Users/Jacob/AndroidStudioProjects/whosaid/app/libs/commons-io-2.4.jar"
-        jumboMode="false"
-        revision="20.0.0"
-        sha1="b1b6ea3b7e4aa4f492509a4952029cd8e48019ad"/>
 
 </pre-dex-items>

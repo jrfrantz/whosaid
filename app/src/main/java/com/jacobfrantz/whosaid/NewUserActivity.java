@@ -18,6 +18,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import network.*;
 
 /**
  * Created by Jacob on 10/5/14.
@@ -135,7 +136,7 @@ public class NewUserActivity extends Activity {
             Log.d("nux", "continue was clicked");
 
             // send it off
-            
+            Backend.saveFiles(Backend.createNewUser(), new File(mCurrentPhotoPath), new File(mFileName));
 
             Intent i = new Intent(NewUserActivity.this, GuessVoiceActivity.class);
             startActivity(i);

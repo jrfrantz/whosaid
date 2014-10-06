@@ -1,5 +1,10 @@
 package network;
-import com.parse.*;
+import com.parse.GetCallback;
+import com.parse.GetDataCallback;
+import com.parse.ParseException;
+import com.parse.ParseFile;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 import org.apache.commons.io.FileUtils;
 
@@ -7,10 +12,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Random;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Jacob on 10/5/14.
@@ -40,7 +45,7 @@ public class Backend {
         return null;
     }
 
-    public User createNewUser() {
+    public static User createNewUser() {
         return new User(generateRandomFileName());
     }
 
@@ -54,14 +59,14 @@ public class Backend {
     }
 
     // TODO: look for collisions
-    private String generateRandomFileName() {
+    private static String generateRandomFileName() {
         Random r = new Random();
         // TODO: format this string to fix the width of integers
         String s = "guid_" + r.nextInt();
         return s;
     }
 
-    public void saveFiles(User user, File picture, File voice) {
+    public static void saveFiles(User user, File picture, File voice) {
         UserInfo info = fileMap.containsKey(user) ? fileMap.get(user) : new UserInfo();
 
         String pictureFileName = generateRandomFileName();
