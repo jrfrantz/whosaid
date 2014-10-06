@@ -16,11 +16,13 @@ import java.util.List;
  * Created by Jacob on 10/5/14.
  */
 public class Backend {
-    private HashMap<User, UserInfo> fileMap;
+    // TODO: make this a parseobject
+    private static HashMap<User, UserInfo> fileMap;
 
     private static final String info_map = "USER_TO_FILE_MAP";
 
     public Backend() {
+
         // TODO: a lot of this
         ParseQuery<ParseObject> query = ParseQuery.getQuery(info_map);
         query.getInBackground("xWMyZ4YEGZ", new GetCallback<ParseObject>() {
@@ -32,6 +34,14 @@ public class Backend {
                 }
             }
         });
+    }
+
+    private String getCanonicalUserId() {
+        return null;
+    }
+
+    public User createNewUser() {
+        return new User(generateRandomFileName());
     }
 
     public void deleteFiles(User user) {
