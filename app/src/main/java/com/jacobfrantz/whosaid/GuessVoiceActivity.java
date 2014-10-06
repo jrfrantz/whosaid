@@ -31,6 +31,7 @@ public class GuessVoiceActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Parse.initialize(this, "RRSzNkADoF991MKjZBv6P4umaCcFpAfcGsNwgrZQ", "1pSC1xgubgF846ZJH3SdM4aFZrS60UcDaDKODmnE");
 
         if (needsNux()) {
             Log.d("","nux");
@@ -42,7 +43,7 @@ public class GuessVoiceActivity extends Activity {
 
             setContentView(R.layout.activity_guess_voice);
 
-            Parse.initialize(this, "RRSzNkADoF991MKjZBv6P4umaCcFpAfcGsNwgrZQ", "1pSC1xgubgF846ZJH3SdM4aFZrS60UcDaDKODmnE");
+
 
             face = (ImageView) findViewById(R.id.personface);
             audioButtonLeft = (Button) findViewById(R.id.mediacontroller_left);
@@ -56,12 +57,35 @@ public class GuessVoiceActivity extends Activity {
             face.setImageResource(R.drawable.testimg);
         }
     }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d("", "olduser");
+
+        setContentView(R.layout.activity_guess_voice);
+
+        face = (ImageView) findViewById(R.id.personface);
+        audioButtonLeft = (Button) findViewById(R.id.mediacontroller_left);
+        audioButtonRight = (Button) findViewById(R.id.mediacontroller_right);
+        audioButtonLeft.setOnClickListener(new AudioOnClickListener());
+        audioButtonLeft.setOnClickListener(new AudioOnClickListener());
+
+        audioPlayerLeft = MediaPlayer.create(this, R.raw.testaudio);
+        audioPlayerRight = new MediaPlayer();
+
+        face.setImageResource(R.drawable.testimg);
+    }
 
     public boolean needsNux() {
         Log.d("","hello");
-        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = this.getSharedPreferences("fname", Context.MODE_PRIVATE);
         Log.d("","second");
-        return sharedPref.getBoolean("nux", true); // true is fallback
+        String res = sharedPref.getString("com.example.whosaid.pref", ""); // true is fallback
+        System.out.println(res + "was read");
+        if (res == "") {
+            res = "yes";
+        }
+        return ("yes").equals(res);
     }
 
 

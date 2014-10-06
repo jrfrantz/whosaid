@@ -15,19 +15,21 @@
             android:layout_centerHorizontal="true"
             android:layout_alignParentTop="true"
             android:text="Take Selfie"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/read_this"
+            android:id="@+id/tv"
+            android:layout_below="@id/take_selfie"
+            />
         <Button
             android:id="@+id/record_audio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_below="@id/take_selfie"
+            android:layout_below="@id/tv"
             android:text="Record" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/read_this"
-            android:layout_above="@id/record_audio"
-            />
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
