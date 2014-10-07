@@ -23,12 +23,12 @@ public class UserInfoService {
 
     static {
         ParseObject userMapObject = new ParseObject("UserMapObject");
-        userMapObjectId = userMapObject.getObjectId();
         try {
             userMapObject.save();
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        userMapObjectId = userMapObject.getObjectId();
     }
 
     public UserInfoService() {
@@ -50,7 +50,8 @@ public class UserInfoService {
     }
 
     public boolean doesUserExist(ParseUser u) {
-        return userMap.containsKey(u.getUsername());
+        boolean b = userMap.containsKey(u.getUsername());
+        return b;
     }
 
     public boolean deleteUserInfo(ParseUser u) {
@@ -61,7 +62,7 @@ public class UserInfoService {
     }
 
     // TODO: make this more efficient, i.e. don't use contains
-    public List<UserInfo> getRandomUsers(int numUsers) {
+    public List<UserInfo> getRandomFiles(int numUsers) {
         String[] keysAsArray = (String[]) userMap.keySet().toArray();
         Random r = new Random();
         Set<Integer> seenUsers = new HashSet<Integer>();

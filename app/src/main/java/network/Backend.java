@@ -57,7 +57,7 @@ public class Backend {
         return generateRandomFileName();
     }
 
-    public void saveFiles(ParseUser user, File picture, File voice) {
+    public void saveFiles(ParseUser user, File picture, File voice) throws IOException {
         UserInfo info = userInfoService.doesUserExist(user)
                 ? userInfoService.getUserInfo(user) : new UserInfo();
 
@@ -67,19 +67,9 @@ public class Backend {
         info.setPictureFileName(voiceFileName);
         // fragile since we're assuming we can overwrite shit but w/e
         userInfoService.saveUserInfo(user, info);
-
-        byte[] pictureFileBytes = null;
-        try {
-            pictureFileBytes = FileUtils.readFileToByteArray(picture);
-        } catch (java.io.IOException e) {
-            e.printStackTrace();
-        }
-        byte[] voiceFileBytes = null;
-        try {
-            voiceFileBytes = FileUtils.readFileToByteArray(voice);
-        } catch (java.io.IOException e) {
-            e.printStackTrace();
-        }
+        // these two throw the IOException
+        byte[] pictureFileBytes = FileUtils.readFileToByteArray(picture);
+        byte[] voiceFileBytes = FileUtils.readFileToByteArray(voice);
 
         ParseFile pictureFile = new ParseFile(pictureFileName, pictureFileBytes);
         ParseFile voiceFile   = new ParseFile(voiceFileName, voiceFileBytes);
@@ -163,8 +153,8 @@ public class Backend {
         return pair;
     }
 
-    public List<ParseUser> getRandomUsers(int numUsers) {
-        return userInfoService.getRandomUsers(numUsers);
+    public List<UserInfo> getRandomFiles(int numUsers) {
+        return userInfoService.getRandomFiles(numUsers);
     }
 }
 
