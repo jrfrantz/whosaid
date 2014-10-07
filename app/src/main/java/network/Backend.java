@@ -22,29 +22,10 @@ import java.util.Random;
  * Created by Jacob on 10/5/14.
  */
 public class Backend {
-    // TODO: make this a parseobject
-    private static HashMap<ParseUser, UserInfo> fileMap;
-
-    private static final String info_map = "USER_TO_FILE_MAP";
-    private static final String info_map_key = "USER_TO_FILE_MAP";
+    private UserInfoService userInfoService;
 
     public Backend() {
-
-        // TODO: a lot of this
-        ParseQuery<ParseObject> query = ParseQuery.getQuery(info_map);
-        query.getInBackground("xWMyZ4YEGZ", new GetCallback<ParseObject>() {
-            public void done(ParseObject object, ParseException e) {
-                if (e == null) {
-                    if (!object.containsKey(info_map_key)) {
-                        fileMap = new HashMap<ParseUser, UserInfo>();
-                    } else {
-                        fileMap = (HashMap<ParseUser, UserInfo>) object.get(info_map_key);
-                    }
-                } else {
-                    // something went wrong
-                }
-            }
-        });
+        userInfoService = new UserInfoService();
     }
 
     private String getCanonicalUserId(User u) {
@@ -56,12 +37,12 @@ public class Backend {
     }
 
     public void deleteFiles(ParseUser user) {
-        if (!fileMap.containsKey(user)) {
+        if (!userInfoService.doesUserExist(user)) {
             return;
         }
-        UserInfo i = fileMap.get(user);
+        UserInfo i = userInfoService.getUserInfo(user);
         i.deleteInBackground();
-        fileMap.remove(user);
+        userInfoService.deleteUserInfo(user);
     }
 
     // TODO: look for collisions
@@ -76,13 +57,16 @@ public class Backend {
         return generateRandomFileName();
     }
 
-    public static void saveFiles(ParseUser user, File picture, File voice) {
-        UserInfo info = fileMap.containsKey(user) ? fileMap.get(user) : new UserInfo();
+    public void saveFiles(ParseUser user, File picture, File voice) {
+        UserInfo info = userInfoService.doesUserExist(user)
+                ? userInfoService.getUserInfo(user) : new UserInfo();
 
         String pictureFileName = generateRandomFileName();
         String voiceFileName   = generateRandomFileName();
         info.setPictureFileName(pictureFileName);
         info.setPictureFileName(voiceFileName);
+        // fragile since we're assuming we can overwrite shit but w/e
+        userInfoService.saveUserInfo(user, info);
 
         byte[] pictureFileBytes = null;
         try {
@@ -124,11 +108,11 @@ public class Backend {
         String pathname = generateRandomFileName();
         final File f = new File(pathname);
 
-        if (!fileMap.containsKey(user)) {
+        if (!userInfoService.doesUserExist(user)) {
             return null;
             // TODO: should throw exception
         }
-        UserInfo i = fileMap.get(user);
+        UserInfo i = userInfoService.getUserInfo(user);
         ParseFile pictureFile = (ParseFile)i.getPictureFile();
         pictureFile.getDataInBackground(new GetDataCallback() {
             public void done(byte[] data, ParseException e) {
@@ -148,21 +132,21 @@ public class Backend {
         String pathname = generateRandomFileName();
         final File f = new File(pathname);
 
-        if (!fileMap.containsKey(user)) {
+        if (!userInfoService.doesUserExist(user)) {
             return null;
             // TODO: should throw exception
         }
-        UserInfo i = fileMap.get(user);
+        UserInfo i = userInfoService.getUserInfo(user);
         ParseFile pictureFile = (ParseFile)i.getVoiceFile();
         pictureFile.getDataInBackground(new GetDataCallback() {
             public void done(byte[] data, ParseException e) {
-                if (e == null) {
-                    // data has the bytes for the file
-                    writeBytesToFile(f, data);
-                } else {
-                    // something went wrong
-                    // TODO: frown
-                }
+            if (e == null) {
+                // data has the bytes for the file
+                writeBytesToFile(f, data);
+            } else {
+                // something went wrong
+                // TODO: frown
+            }
             }
         });
         return f;
@@ -179,19 +163,8 @@ public class Backend {
         return pair;
     }
 
-    // TODO: make this more efficient, i.e. don't use contains
     public List<ParseUser> getRandomUsers(int numUsers) {
-        List<ParseUser> keysAsArray = new ArrayList<ParseUser>(fileMap.keySet());
-        Random r = new Random();
-
-        List<ParseUser> newUsers = new ArrayList<ParseUser>();
-        while (newUsers.size() < numUsers) {
-            ParseUser u = keysAsArray.get(r.nextInt(keysAsArray.size()));
-            if (!keysAsArray.contains(u)) {
-                newUsers.add(u);
-            }
-        }
-        return newUsers;
+        return userInfoService.getRandomUsers(numUsers);
     }
 }
 
