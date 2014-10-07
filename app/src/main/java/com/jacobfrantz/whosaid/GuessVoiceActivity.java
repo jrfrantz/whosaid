@@ -49,8 +49,6 @@ public class GuessVoiceActivity extends Activity {
 
             setContentView(R.layout.activity_guess_voice);
 
-
-
             face = (ImageView) findViewById(R.id.personface);
             audioButtonLeft = (Button) findViewById(R.id.mediacontroller_left);
             audioButtonRight = (Button) findViewById(R.id.mediacontroller_right);
