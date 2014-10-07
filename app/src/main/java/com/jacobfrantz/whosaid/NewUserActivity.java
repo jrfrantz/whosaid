@@ -124,9 +124,9 @@ public class NewUserActivity extends Activity {
             } else {
                 mRecorder.stop();
                 mRecorder.release();
-                mRecorder = null;
                 isPlaying = false;
                 isRecorded = true;
+                recordButton.setText("Start Recording");
             }
         }
     }
