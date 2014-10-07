@@ -15,6 +15,9 @@ import android.widget.ImageView;
 import android.widget.MediaController;
 import com.parse.Parse;
 import com.parse.ParseUser;
+import com.parse.ParseObject;
+
+import network.UserInfo;
 
 public class GuessVoiceActivity extends Activity {
     private ImageView face;
@@ -31,6 +34,7 @@ public class GuessVoiceActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ParseObject.registerSubclass(UserInfo.class);
         Parse.initialize(this, "RRSzNkADoF991MKjZBv6P4umaCcFpAfcGsNwgrZQ", "1pSC1xgubgF846ZJH3SdM4aFZrS60UcDaDKODmnE");
         // this sets ParseUser.getCurrentUser() to an anonymous user for us so async call is not req
         ParseUser.enableAutomaticUser();
@@ -38,8 +42,8 @@ public class GuessVoiceActivity extends Activity {
         if (needsNux()) {
             Log.d("","nux");
             Intent nux = new Intent(this, NewUserActivity.class);
+            // TODO(jacob): figure out how to make this transition robust to pressing back button
             startActivity(nux);
-            finish();
         } else {
             Log.d("", "olduser");
 

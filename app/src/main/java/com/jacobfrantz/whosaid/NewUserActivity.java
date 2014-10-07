@@ -59,16 +59,14 @@ public class NewUserActivity extends Activity {
                 // Create an image file name
                 String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
                 String imageFileName = "JPEG_" + timeStamp + "_";
-                File storageDir = Environment.getExternalStoragePublicDirectory(
-                        Environment.DIRECTORY_PICTURES);
+                File storageDir = getFilesDir();
                 File image = File.createTempFile(
                         imageFileName,  /* prefix */
                         ".jpg",         /* suffix */
                         storageDir      /* directory */
                 );
-
                 // Save a file: path for use with ACTION_VIEW intents
-                mCurrentPhotoPath = "file:" + image.getAbsolutePath();
+                mCurrentPhotoPath = image.getAbsolutePath();//"file:" + image.getAbsolutePath();
                 return image;
             }
             @Override
@@ -82,6 +80,7 @@ public class NewUserActivity extends Activity {
                         photoFile = createImageFile();
                     } catch (IOException ex) {
                         // Error occurred while creating the File
+                        ex.printStackTrace();
                     }
                     // Continue only if the File was successfully created
                     if (photoFile != null) {
@@ -135,7 +134,6 @@ public class NewUserActivity extends Activity {
     }
 
     private class ContinueOnClickListener implements View.OnClickListener {
-        // TODO(bob): this is obviously extremely hacky. anonymous users are disposable
         // fix this shit
         public void onClick(View v) {
             // send to Parse
@@ -147,10 +145,13 @@ public class NewUserActivity extends Activity {
             Log.d("nux", "continue was clicked");
 
             // send it off
-            backend.saveFiles(Backend.getCurrentUser(), new File(mCurrentPhotoPath), new File(mFileName));
+            try {
+                backend.saveFiles(Backend.getCurrentUser(), new File(mCurrentPhotoPath), new File(mFileName));
+            } catch (IOException e) {
+                // something went wrong with reading the files
+                e.printStackTrace();
+            }
 
-            Intent i = new Intent(NewUserActivity.this, GuessVoiceActivity.class);
-            startActivity(i);
             finish();
             Log.d("nux", "finished");
         }
