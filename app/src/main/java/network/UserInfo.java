@@ -6,18 +6,6 @@ import com.parse.ParseClassName;
 
 @ParseClassName("UserInfo")
 public class UserInfo extends ParseObject {
-    public String getPictureFileName() {
-        return getString("pictureFileName");
-    }
-    public void setPictureFileName(String value) {
-        put("pictureFileName", value);
-    }
-    public String getVoiceFileName() {
-        return getString("voiceFileName");
-    }
-    public void setVoiceFileName(String value) {
-        put("voiceFile", value);
-    }
     public ParseFile getPictureFile() {
         return getParseFile("voiceFile");
     }

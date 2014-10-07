@@ -63,8 +63,6 @@ public class Backend {
 
         String pictureFileName = generateRandomFileName();
         String voiceFileName   = generateRandomFileName();
-        info.setPictureFileName(pictureFileName);
-        info.setPictureFileName(voiceFileName);
         // fragile since we're assuming we can overwrite shit but w/e
         userInfoService.saveUserInfo(user, info);
         // these two throw the IOException

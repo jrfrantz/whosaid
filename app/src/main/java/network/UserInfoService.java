@@ -1,13 +1,11 @@
 package network;
 
-import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
@@ -17,7 +15,6 @@ import java.util.Set;
  * Created by robertsami on 10/6/14.
  */
 public class UserInfoService {
-
     private static final String userMapObjectId;
     private ParseObject userMap;
 
