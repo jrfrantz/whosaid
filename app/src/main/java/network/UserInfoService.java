@@ -8,66 +8,69 @@ import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 /**
  * Created by robertsami on 10/6/14.
  */
 public class UserInfoService {
 
-    private static HashMap<ParseUser, UserInfo> fileMap;
-    private static final String info_map = "USER_TO_FILE_MAP";
-    private static final String info_map_key = "USER_TO_FILE_MAP";
+    private static final String userMapObjectId;
+    private ParseObject userMap;
+
+    static {
+        ParseObject userMapObject = new ParseObject("UserMapObject");
+        userMapObjectId = userMapObject.getObjectId();
+        try {
+            userMapObject.save();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
 
     public UserInfoService() {
-        // TODO: a lot of this
-        ParseQuery<ParseObject> query = ParseQuery.getQuery(info_map);
-        query.getInBackground("xWMyZ4YEGZ", new GetCallback<ParseObject>() {
-            public void done(ParseObject object, ParseException e) {
-                if (e == null) {
-                    if (!object.containsKey(info_map_key)) {
-                        fileMap = new HashMap<ParseUser, UserInfo>();
-                    } else {
-                        fileMap = (HashMap<ParseUser, UserInfo>) object.get(info_map_key);
-                    }
-                } else {
-                    // something went wrong
-                }
-            }
-        });
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("UserMapObject");
+        try {
+            userMap = query.get(userMapObjectId);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     public UserInfo getUserInfo(ParseUser u) {
-        return fileMap.get(u);
+        return (UserInfo) userMap.get(u.getUsername());
     }
 
     public boolean saveUserInfo(ParseUser u, UserInfo i) {
-        fileMap.put(u, i);
+        userMap.add(u.getUsername(), i);
         return true;
     }
 
     public boolean doesUserExist(ParseUser u) {
-        return fileMap.containsKey(u);
+        return userMap.containsKey(u.getUsername());
     }
 
     public boolean deleteUserInfo(ParseUser u) {
         if (doesUserExist(u)) {
-            fileMap.remove(u);
+            userMap.remove(u.getUsername());
         }
         return true;
     }
 
     // TODO: make this more efficient, i.e. don't use contains
-    public List<ParseUser> getRandomUsers(int numUsers) {
-        List<ParseUser> keysAsArray = new ArrayList<ParseUser>(fileMap.keySet());
+    public List<UserInfo> getRandomUsers(int numUsers) {
+        String[] keysAsArray = (String[]) userMap.keySet().toArray();
         Random r = new Random();
-
-        List<ParseUser> newUsers = new ArrayList<ParseUser>();
+        Set<Integer> seenUsers = new HashSet<Integer>();
+        List<UserInfo> newUsers = new ArrayList<UserInfo>();
         while (newUsers.size() < numUsers) {
-            ParseUser u = keysAsArray.get(r.nextInt(keysAsArray.size()));
-            if (!keysAsArray.contains(u)) {
-                newUsers.add(u);
+            int index = r.nextInt(keysAsArray.length);
+            if (!seenUsers.contains(index)) {
+                seenUsers.add(index);
+                newUsers.add((UserInfo)userMap.get(keysAsArray[index]));
             }
         }
         return newUsers;
