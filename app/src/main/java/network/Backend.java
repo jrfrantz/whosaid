@@ -5,6 +5,7 @@ import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import org.apache.commons.io.FileUtils;
 
@@ -22,7 +23,7 @@ import java.util.Random;
  */
 public class Backend {
     // TODO: make this a parseobject
-    private static HashMap<User, UserInfo> fileMap;
+    private static HashMap<ParseUser, UserInfo> fileMap;
 
     private static final String info_map = "USER_TO_FILE_MAP";
     private static final String info_map_key = "USER_TO_FILE_MAP";
@@ -35,9 +36,9 @@ public class Backend {
             public void done(ParseObject object, ParseException e) {
                 if (e == null) {
                     if (!object.containsKey(info_map_key)) {
-                        fileMap = new HashMap<User, UserInfo>();
+                        fileMap = new HashMap<ParseUser, UserInfo>();
                     } else {
-                        fileMap = (HashMap<User, UserInfo>) object.get(info_map_key);
+                        fileMap = (HashMap<ParseUser, UserInfo>) object.get(info_map_key);
                     }
                 } else {
                     // something went wrong
@@ -50,11 +51,8 @@ public class Backend {
         return null;
     }
 
-    public static User createNewUser(UserFootprint f) {
-        return new User(generateRandomFileName());
-    }
 
-    public void deleteFiles(User user) {
+    public void deleteFiles(ParseUser user) {
         if (!fileMap.containsKey(user)) {
             return;
         }
@@ -71,11 +69,11 @@ public class Backend {
         return s;
     }
 
-    private static String generateUserFileName(User u) {
+    private static String generateUserFileName(ParseUser u) {
         return generateRandomFileName();
     }
 
-    public static void saveFiles(User user, File picture, File voice) {
+    public static void saveFiles(ParseUser user, File picture, File voice) {
         UserInfo info = fileMap.containsKey(user) ? fileMap.get(user) : new UserInfo();
 
         String pictureFileName = generateRandomFileName();
@@ -119,7 +117,7 @@ public class Backend {
         }
     }
 
-    private File getPicture(User user) {
+    private File getPicture(ParseUser user) {
         String pathname = generateRandomFileName();
         final File f = new File(pathname);
 
@@ -143,7 +141,7 @@ public class Backend {
         return f;
     }
 
-    private File getVoice(User user) {
+    private File getVoice(ParseUser user) {
         String pathname = generateRandomFileName();
         final File f = new File(pathname);
 
@@ -167,7 +165,7 @@ public class Backend {
         return f;
     }
 
-    public FilePair getUserFiles(User user) {
+    public FilePair getUserFiles(ParseUser user) {
         FilePair pair = new FilePair();
         pair.pictureFile = getPicture(user);
         pair.voiceFile   = getVoice(user);
@@ -179,13 +177,13 @@ public class Backend {
     }
 
     // TODO: make this more efficient, i.e. don't use contains
-    public List<User> getRandomUsers(int numUsers) {
-        List<User> keysAsArray = new ArrayList<User>(fileMap.keySet());
+    public List<ParseUser> getRandomUsers(int numUsers) {
+        List<ParseUser> keysAsArray = new ArrayList<ParseUser>(fileMap.keySet());
         Random r = new Random();
 
-        List<User> newUsers = new ArrayList<User>();
+        List<ParseUser> newUsers = new ArrayList<ParseUser>();
         while (newUsers.size() < numUsers) {
-            User u = keysAsArray.get(r.nextInt(keysAsArray.size()));
+            ParseUser u = keysAsArray.get(r.nextInt(keysAsArray.size()));
             if (!keysAsArray.contains(u)) {
                 newUsers.add(u);
             }

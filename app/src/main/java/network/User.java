@@ -6,11 +6,8 @@ package network;
 public class User {
     private String id;
     private String fileID;
-    private UserFootprint f;
 
-    public User(UserFootprint f) {
-        this.f = f;
-        id = f.getFootprintID();
+    public User() {
         fileID = "user_id_" + id;
     }
 
@@ -24,9 +21,5 @@ public class User {
 
     public String getFileID() {
         return fileID;
-    }
-
-    public UserFootprint getPhoneFingerprint() {
-        return f;
     }
 }
