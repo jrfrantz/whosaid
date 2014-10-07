@@ -14,7 +14,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.MediaController;
 import com.parse.Parse;
-import com.parse.ParseAnalytics;
+import com.parse.ParseUser;
 
 public class GuessVoiceActivity extends Activity {
     private ImageView face;
@@ -32,6 +32,8 @@ public class GuessVoiceActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Parse.initialize(this, "RRSzNkADoF991MKjZBv6P4umaCcFpAfcGsNwgrZQ", "1pSC1xgubgF846ZJH3SdM4aFZrS60UcDaDKODmnE");
+        // this sets ParseUser.getCurrentUser() to an anonymous user for us so async call is not req
+        ParseUser.enableAutomaticUser();
 
         if (needsNux()) {
             Log.d("","nux");

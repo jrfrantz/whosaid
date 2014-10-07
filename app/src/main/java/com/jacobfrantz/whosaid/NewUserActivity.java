@@ -135,32 +135,21 @@ public class NewUserActivity extends Activity {
         // TODO(bob): this is obviously extremely hacky. anonymous users are disposable
         // fix this shit
         public void onClick(View v) {
-            // log-in anonymously
-            ParseAnonymousUtils.logIn(new LogInCallback() {
-                @Override
-                public void done(ParseUser user, ParseException e) {
-                    if (e != null) {
-                        Log.d("MyApp", "Anonymous login failed.");
-                    } else {
-                        Log.d("MyApp", "Anonymous user logged in.");
-                        // send to Parse
-                        SharedPreferences sharedPref = NewUserActivity.this.getSharedPreferences("fname", Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPref.edit();
-                        editor.putString("com.example.whosaid.pref", "no");
-                        editor.commit();
+            // send to Parse
+            SharedPreferences sharedPref = NewUserActivity.this.getSharedPreferences("fname", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString("com.example.whosaid.pref", "no");
+            editor.commit();
 
-                        Log.d("nux", "continue was clicked");
+            Log.d("nux", "continue was clicked");
 
-                        // send it off
-                        Backend.saveFiles(user, new File(mCurrentPhotoPath), new File(mFileName));
+            // send it off
+            Backend.saveFiles(Backend.getCurrentUser(), new File(mCurrentPhotoPath), new File(mFileName));
 
-                        Intent i = new Intent(NewUserActivity.this, GuessVoiceActivity.class);
-                        startActivity(i);
-                        finish();
-                        Log.d("nux", "finished");
-                    }
-                }
-            });
+            Intent i = new Intent(NewUserActivity.this, GuessVoiceActivity.class);
+            startActivity(i);
+            finish();
+            Log.d("nux", "finished");
         }
     }
     private int getFrontCameraId(){

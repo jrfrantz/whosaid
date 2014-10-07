@@ -51,6 +51,9 @@ public class Backend {
         return null;
     }
 
+    public static ParseUser getCurrentUser() {
+        return ParseUser.getCurrentUser();
+    }
 
     public void deleteFiles(ParseUser user) {
         if (!fileMap.containsKey(user)) {
