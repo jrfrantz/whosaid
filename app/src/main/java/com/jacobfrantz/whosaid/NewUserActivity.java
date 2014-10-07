@@ -38,9 +38,12 @@ public class NewUserActivity extends Activity {
     boolean isPlaying;
     boolean isRecorded;
     private String mCurrentPhotoPath;
+    Backend backend;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        backend = new Backend();
 
         setContentView(R.layout.activity_new_user);
 
@@ -126,7 +129,7 @@ public class NewUserActivity extends Activity {
                 mRecorder.release();
                 isPlaying = false;
                 isRecorded = true;
-                recordButton.setText("Start Recording");
+                recordButton.setText("Record");
             }
         }
     }
@@ -144,7 +147,7 @@ public class NewUserActivity extends Activity {
             Log.d("nux", "continue was clicked");
 
             // send it off
-            Backend.saveFiles(Backend.getCurrentUser(), new File(mCurrentPhotoPath), new File(mFileName));
+            backend.saveFiles(Backend.getCurrentUser(), new File(mCurrentPhotoPath), new File(mFileName));
 
             Intent i = new Intent(NewUserActivity.this, GuessVoiceActivity.class);
             startActivity(i);
