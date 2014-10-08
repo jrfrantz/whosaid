@@ -15,18 +15,9 @@ import java.util.Set;
  * Created by robertsami on 10/6/14.
  */
 public class UserInfoService {
-    private static final String userMapObjectId;
+    // TODO(robertsami): read this in statically
+    private static final String userMapObjectId = "fRGHMuofaW";
     private ParseObject userMap;
-
-    static {
-        ParseObject userMapObject = new ParseObject("UserMapObject");
-        try {
-            userMapObject.save();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        userMapObjectId = userMapObject.getObjectId();
-    }
 
     public UserInfoService() {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("UserMapObject");
