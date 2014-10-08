@@ -1,2 +1,6 @@
 # ignore files for pubkey shit
 *.pem
+# ignore this fucking .DS_Store shit
+*.DS_Store
+# ignore .idea bullshit
+.idea*
