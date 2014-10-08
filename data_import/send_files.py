@@ -14,10 +14,11 @@ def send_pair(local_path_to_folder):
   print res2
 
   #get object name from end of path
-  obj_name = local_path_to_folder.split("/")[-1]
-  print obj_name
+  user_name = local_path_to_folder.split("/")[-1]
+  print user_name
   res3 = associate_with_user_info(picture_file_name = picture_name, voice_file_name = voice_name)
   print res3
+  res4 = associate_with_user_map(user_info_obj_id = res3["objectId"], user_name = user_name)
 
 def send_picture(local_path):
   connection = httplib.HTTPSConnection('api.parse.com', 443)
@@ -62,18 +63,23 @@ def associate_with_user_info(picture_file_name, voice_file_name):
   result = json.loads(connection.getresponse().read())
   return result
 
-# def associate_with_user_map(user_info_obj_id, user_name, user_info_obj_id):
-#   connection = httplib.HTTPSConnection('api.parse.com', 443)
-#   connection.connect()
-#   connection.request('PUT', '/1/classes/GameScore/' + user_map_obj_id, json.dumps({
-#          user_name: user_info_obj_id
-#        }), {
-#          "X-Parse-Application-Id": who_said_app_id,
-#          "X-Parse-REST-API-Key": who_said_api_key,
-#          "Content-Type": "application/json"
-#        })
-#   result = json.loads(connection.getresponse().read())
-#   print result
+def associate_with_user_map(user_info_obj_id, user_name):
+  # read usermap from file
+  json_data = open("user_map.txt").read()
+  data = json.loads(json_data)
+  user_map_obj_id = data["objectId"]
+
+  connection = httplib.HTTPSConnection('api.parse.com', 443)
+  connection.connect()
+  connection.request('PUT', '/1/classes/UserMapObject/' + user_map_obj_id, json.dumps({
+         user_name: user_info_obj_id
+       }), {
+         "X-Parse-Application-Id": who_said_app_id,
+         "X-Parse-REST-API-Key": who_said_api_key,
+         "Content-Type": "application/json"
+       })
+  result = json.loads(connection.getresponse().read())
+  print result
 
 # DONT CALL THIS SHIT OK?
 def create_user_map():
@@ -90,3 +96,4 @@ def create_user_map():
   print result
 
 send_pair("/Users/robertsami/Documents/dev/whosaid/server/res/troll")
+# create_user_map()
