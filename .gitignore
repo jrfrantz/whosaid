@@ -4,3 +4,9 @@
 *.DS_Store
 # ignore .idea bullshit
 .idea*
+# ignore intermediate build files
+build/intermediates/*
+#wtf is gradle anyways
+.gradle/
+# also idk what whosaid.iml is. i think these are both build configs
+whosaid.iml
