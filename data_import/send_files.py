@@ -95,5 +95,7 @@ def create_user_map():
   # TODO(rob): make this append to user_map.txt
   print result
 
-send_pair("/Users/robertsami/Documents/dev/whosaid/server/res/troll")
+# send_pair("/Users/robertsami/Documents/dev/whosaid/server/res/troll")
+# send_pair("/Users/robertsami/Documents/dev/whosaid/server/res/gun")
+# send_pair("/Users/robertsami/Documents/dev/whosaid/server/res/wolf")
 # create_user_map()
